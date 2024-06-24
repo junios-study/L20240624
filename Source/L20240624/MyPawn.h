@@ -35,6 +35,17 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void Pitch(float Value);
+
+	void Roll(float Value);
+
+	void PressBooster();
+
+	void ReleaseBooster();
+
+	void Fire();
+
+
 	TObjectPtr<UBoxComponent> Box;
 
 	TObjectPtr<UStaticMeshComponent> Body;

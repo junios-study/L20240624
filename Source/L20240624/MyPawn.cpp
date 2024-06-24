@@ -98,5 +98,44 @@ void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis(TEXT("Pitch(UpDown)"), this, &AMyPawn::Pitch);
+	PlayerInputComponent->BindAxis(TEXT("Roll(LeftRight)"), this, &AMyPawn::Roll);
+	PlayerInputComponent->BindAction(TEXT("Booster"), IE_Pressed, this, &AMyPawn::PressBooster);
+	PlayerInputComponent->BindAction(TEXT("Booster"), IE_Released, this, &AMyPawn::ReleaseBooster);
+
+	PlayerInputComponent->BindAction(TEXT("Attack"), IE_Pressed, this, &AMyPawn::Fire);
+}
+
+void AMyPawn::Pitch(float Value)
+{
+	float Dir = FMath::Clamp(Value, -1.0f, 1.0f);
+
+	AddActorLocalRotation(FRotator(Dir * 60.0f *
+		UGameplayStatics::GetWorldDeltaSeconds(GetWorld()), 0, 0));
+}
+
+void AMyPawn::Roll(float Value)
+{
+	float Dir = FMath::Clamp(Value, -1.0f, 1.0f);
+
+	AddActorLocalRotation(
+		FRotator(0,
+			0, 
+			Dir * 60.0f * UGameplayStatics::GetWorldDeltaSeconds(GetWorld()))
+	);
+}
+
+void AMyPawn::PressBooster()
+{
+	Booster = 1.0f;
+}
+
+void AMyPawn::ReleaseBooster()
+{
+	Booster = 0.5f;
+}
+
+void AMyPawn::Fire()
+{
 }
 
