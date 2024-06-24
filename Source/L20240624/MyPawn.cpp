@@ -11,6 +11,7 @@
 #include "Components/ArrowComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyStaticMeshComponent.h"
+#include "MyRocket.h"
 
 
 // Sets default values
@@ -62,6 +63,7 @@ AMyPawn::AMyPawn()
 	Arrow->SetRelativeLocation(FVector(80.0f, 0, 0));
 
 	Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
+	Movement->MaxSpeed = 0.0f;
 
 	Booster = 1.0f;
 }
@@ -137,5 +139,7 @@ void AMyPawn::ReleaseBooster()
 
 void AMyPawn::Fire()
 {
+	GetWorld()->SpawnActor<AMyRocket>(Arrow->K2_GetComponentLocation(),
+		Arrow->K2_GetComponentRotation());
 }
 
