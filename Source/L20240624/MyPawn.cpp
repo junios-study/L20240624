@@ -9,6 +9,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Components/ArrowComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "MyStaticMeshComponent.h"
 
 
 // Sets default values
@@ -30,10 +32,10 @@ AMyPawn::AMyPawn()
 	}
 	
 
-	Left = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Left"));
+	Left = CreateDefaultSubobject<UMyStaticMeshComponent>(TEXT("Left"));
 	Left->SetupAttachment(Body);
 
-	Right = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Right"));
+	Right = CreateDefaultSubobject<UMyStaticMeshComponent>(TEXT("Right"));
 	Right->SetupAttachment(Body);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_Propeller(TEXT("/Script/Engine.StaticMesh'/Game/My/Meshes/SM_P38_Propeller.SM_P38_Propeller'"));
@@ -78,6 +80,17 @@ void AMyPawn::Tick(float DeltaTime)
 
 	AddMovementInput(GetActorForwardVector(),
 		Booster);
+
+
+	//RotatePropeller(Left);
+	//RotatePropeller(Right);
+	//Left->AddLocalRotation(FRotator(0, 0, 3600.f * DeltaTime));
+	//Right->AddLocalRotation(FRotator(0, 0, 3600.f * DeltaTime));
+}
+
+void AMyPawn::RotatePropeller(UStaticMeshComponent* Where)
+{
+	Where->AddLocalRotation(FRotator(0, 0, 3600.f * UGameplayStatics::GetWorldDeltaSeconds(GetWorld())));
 }
 
 // Called to bind functionality to input

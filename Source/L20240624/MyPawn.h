@@ -30,6 +30,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void RotatePropeller(UStaticMeshComponent* Where);
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -37,9 +39,14 @@ public:
 
 	TObjectPtr<UStaticMeshComponent> Body;
 
-	TObjectPtr<UStaticMeshComponent> Left;
+	//TObjectPtr<UStaticMeshComponent> Left;
 
-	TObjectPtr<UStaticMeshComponent> Right;
+	//TObjectPtr<UStaticMeshComponent> Right;
+
+	TObjectPtr<class UMyStaticMeshComponent> Left;
+
+	TObjectPtr<class UMyStaticMeshComponent> Right;
+
 
 	TObjectPtr<UArrowComponent> Arrow;
 
