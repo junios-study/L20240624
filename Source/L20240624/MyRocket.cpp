@@ -50,7 +50,6 @@ void AMyRocket::BeginPlay()
 void AMyRocket::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AMyRocket::ProcessActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
