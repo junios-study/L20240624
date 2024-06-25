@@ -12,6 +12,7 @@
 UCLASS()
 class L20240624_API UMyCustomStaticMeshComponent : public UStaticMeshComponent
 {
+
 	GENERATED_BODY()
 
 public:

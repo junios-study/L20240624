@@ -66,6 +66,13 @@ AMyPawn::AMyPawn()
 	Movement->MaxSpeed = 0.0f;
 
 	Booster = 1.0f;
+
+	static ConstructorHelpers::FClassFinder<AMyRocket> BP_RocketClass(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/BP_Rocket.BP_Rocket_C'"));
+	if (BP_RocketClass.Succeeded())
+	{
+		RocketTemplate = BP_RocketClass.Class;
+	}
+
 }
 
 // Called when the game starts or when spawned
@@ -139,7 +146,7 @@ void AMyPawn::ReleaseBooster()
 
 void AMyPawn::Fire()
 {
-	GetWorld()->SpawnActor<AMyRocket>(Arrow->K2_GetComponentLocation(),
+	GetWorld()->SpawnActor<AActor>(RocketTemplate, Arrow->K2_GetComponentLocation(),
 		Arrow->K2_GetComponentRotation());
 }
 

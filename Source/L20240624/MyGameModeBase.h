@@ -12,6 +12,8 @@
 /**
  * 
  */
+
+//Unmanaged -> C++ + Macro (UBT) (UHT) => 생성된 C++ => Managed
 UCLASS()
 class L20240624_API AMyGameModeBase : public AGameModeBase
 {
@@ -20,5 +22,6 @@ class L20240624_API AMyGameModeBase : public AGameModeBase
 
 public:
 	AMyGameModeBase();
+
 	
 };
