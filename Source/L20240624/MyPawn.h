@@ -30,6 +30,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
 	void RotatePropeller(UStaticMeshComponent* Where);
 
 	// Called to bind functionality to input
@@ -45,7 +46,7 @@ public:
 
 	void Fire();
 
-
+	UPROPERTY()
 	TObjectPtr<UBoxComponent> Box;
 
 	TObjectPtr<UStaticMeshComponent> Body;
