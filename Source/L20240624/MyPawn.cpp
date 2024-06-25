@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "MyPawn.h"
@@ -12,7 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MyStaticMeshComponent.h"
 #include "MyRocket.h"
-
+#include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values
 AMyPawn::AMyPawn()
@@ -112,7 +112,7 @@ void AMyPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction(TEXT("Booster"), IE_Pressed, this, &AMyPawn::PressBooster);
 	PlayerInputComponent->BindAction(TEXT("Booster"), IE_Released, this, &AMyPawn::ReleaseBooster);
 
-	PlayerInputComponent->BindAction(TEXT("Attack"), IE_Pressed, this, &AMyPawn::Fire);
+	//PlayerInputComponent->BindAction(TEXT("Attack"), IE_Pressed, this, &AMyPawn::Fire);
 }
 
 void AMyPawn::Pitch(float Value)
@@ -144,9 +144,19 @@ void AMyPawn::ReleaseBooster()
 	Booster = 0.5f;
 }
 
+void AMyPawn::BPCallCPPOverride_Implementation(int Score)
+{
+	UKismetSystemLibrary::PrintString(GetWorld(),
+		TEXT("이건 C++에서 기본 실행되는 거"));
+}
+
 void AMyPawn::Fire()
 {
 	GetWorld()->SpawnActor<AActor>(RocketTemplate, Arrow->K2_GetComponentLocation(),
 		Arrow->K2_GetComponentRotation());
+
+	//점수 계산, 색 바꿔
+	//BPCallCPP(10);
+	BPCallCPPOverride(20);
 }
 

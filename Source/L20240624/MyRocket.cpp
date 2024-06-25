@@ -14,6 +14,7 @@ AMyRocket::AMyRocket()
 
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
 	RootComponent = Box;
+	Box->SetGenerateOverlapEvents(true);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Box);
@@ -37,6 +38,10 @@ void AMyRocket::BeginPlay()
 {
 	Super::BeginPlay();
 
+	OnActorBeginOverlap.AddDynamic(this, &AMyRocket::ProcessActorBeginOverlap);
+	OnActorBeginOverlap.RemoveDynamic(this, &AMyRocket::ProcessActorBeginOverlap);
+	//OnActorBeginOverlap.RemoveAll(this);
+
 	SetLifeSpan(3.0f);
 	
 }
@@ -46,5 +51,10 @@ void AMyRocket::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AMyRocket::ProcessActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *OtherActor->GetName());
 }
 
